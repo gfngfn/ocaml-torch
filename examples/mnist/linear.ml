@@ -43,7 +43,7 @@ let () =
     Tensor.zero_grad bs;
     (* Compute the validation error. *)
     let got = model test_images in
-    let estimated = Tensor.argmax got in
+    let estimated = Tensor.argmax ~dim:1 got in
     display_shape "test_images" test_images;
     display_shape "got" got;
     display_shape "estimated" estimated;
