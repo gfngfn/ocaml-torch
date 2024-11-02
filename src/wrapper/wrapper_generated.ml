@@ -1804,7 +1804,7 @@ let _new_zeros_with_same_feature_meta_out ~out self other ~self_num_batch_dims =
   t0
 
 let _nnpack_available  =
-  stubs__nnpack_available 
+  stubs__nnpack_available
 
 let _nnpack_spatial_convolution input ~weight ~bias ~padding ~stride =
   let out__ = CArray.make t 1 in
@@ -3233,7 +3233,7 @@ let _use_cudnn_ctc_loss_tensor ~log_probs ~targets ~input_lengths ~target_length
   stubs__use_cudnn_ctc_loss_tensor log_probs targets input_lengths target_lengths (Int64.of_int blank)
 
 let _use_cudnn_rnn_flatten_weight  =
-  stubs__use_cudnn_rnn_flatten_weight 
+  stubs__use_cudnn_rnn_flatten_weight
 
 let _validate_compressed_sparse_indices ~is_crow ~compressed_idx ~plain_idx ~cdim ~dim ~nnz =
   stubs__validate_compressed_sparse_indices (if is_crow then 1 else 0) compressed_idx plain_idx (Int64.of_int cdim) (Int64.of_int dim) (Int64.of_int nnz)
@@ -4052,28 +4052,28 @@ let arctanh_out ~out self =
 
 let argmax self ~dim ~keepdim =
   let out__ = CArray.make t 1 in
-  stubs_argmax (CArray.start out__) self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 1 | None -> 0)  (if keepdim then 1 else 0);
+  stubs_argmax (CArray.start out__) self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 0 | None -> 1)  (if keepdim then 1 else 0);
   let t0 = CArray.get out__ 0 in
   Gc.finalise C.Tensor.free t0;
   t0
 
 let argmax_out ~out self ~dim ~keepdim =
   let out__ = CArray.make t 1 in
-  stubs_argmax_out (CArray.start out__) out self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 1 | None -> 0)  (if keepdim then 1 else 0);
+  stubs_argmax_out (CArray.start out__) out self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 0 | None -> 1)  (if keepdim then 1 else 0);
   let t0 = CArray.get out__ 0 in
   Gc.finalise C.Tensor.free t0;
   t0
 
 let argmin self ~dim ~keepdim =
   let out__ = CArray.make t 1 in
-  stubs_argmin (CArray.start out__) self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 1 | None -> 0)  (if keepdim then 1 else 0);
+  stubs_argmin (CArray.start out__) self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 0 | None -> 1)  (if keepdim then 1 else 0);
   let t0 = CArray.get out__ 0 in
   Gc.finalise C.Tensor.free t0;
   t0
 
 let argmin_out ~out self ~dim ~keepdim =
   let out__ = CArray.make t 1 in
-  stubs_argmin_out (CArray.start out__) out self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 1 | None -> 0)  (if keepdim then 1 else 0);
+  stubs_argmin_out (CArray.start out__) out self  (match dim with | None -> Int64.zero | Some v -> Int64.of_int v) (match dim with | Some _ -> 0 | None -> 1)  (if keepdim then 1 else 0);
   let t0 = CArray.get out__ 0 in
   Gc.finalise C.Tensor.free t0;
   t0
@@ -9099,7 +9099,7 @@ let is_signed self =
   stubs_is_signed self
 
 let is_vulkan_available  =
-  stubs_is_vulkan_available 
+  stubs_is_vulkan_available
 
 let isclose self other ~rtol ~atol ~equal_nan =
   let out__ = CArray.make t 1 in
@@ -18188,4 +18188,3 @@ let zeros_out ~out ~size =
   let t0 = CArray.get out__ 0 in
   Gc.finalise C.Tensor.free t0;
   t0
-
