@@ -13,7 +13,7 @@ open Torch
 
 let learning_rate = Tensor.f 1.
 
-let () =
+let main () =
   let { Dataset_helper.train_images; train_labels; test_images; test_labels } =
     Mnist_helper.read_files ()
   in
