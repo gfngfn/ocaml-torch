@@ -28,7 +28,7 @@ let () =
   let model xs = Tensor.(mm xs ws + bs) in
   display_shape "ws" ws;
   display_shape "bs" bs;
-  for index = 1 to 10 do
+  for index = 1 to 200 do
     (* Compute the cross-entropy loss. *)
     let loss =
       Tensor.cross_entropy_for_logits (model train_images) ~targets:train_labels
@@ -44,10 +44,6 @@ let () =
     (* Compute the validation error. *)
     let got = model test_images in
     let estimated = Tensor.argmax ~dim:1 got in
-    display_shape "test_images" test_images;
-    display_shape "got" got;
-    display_shape "estimated" estimated;
-    display_shape "test_labels" test_labels;
     let test_accuracy =
       Tensor.(estimated = test_labels)
       |> Tensor.to_kind ~kind:(T Float)
