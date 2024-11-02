@@ -13,6 +13,12 @@ open Torch
 
 let learning_rate = Tensor.f 1.
 
+let display_shape title tensor =
+  Stdio.print_endline ("SHAPE (" ^ title ^ "):");
+  List.iter
+    ~f:(fun n -> Stdio.print_endline ("- " ^ Int.to_string n))
+    (Tensor.shape tensor)
+
 let () =
   let { Dataset_helper.train_images; train_labels; test_images; test_labels } =
     Mnist_helper.read_files ()
@@ -20,7 +26,9 @@ let () =
   let ws = Tensor.zeros Mnist_helper.[ image_dim; label_count ] ~requires_grad:true in
   let bs = Tensor.zeros [ Mnist_helper.label_count ] ~requires_grad:true in
   let model xs = Tensor.(mm xs ws + bs) in
-  for index = 1 to 200 do
+  display_shape "ws" ws;
+  display_shape "bs" bs;
+  for index = 1 to 10 do
     (* Compute the cross-entropy loss. *)
     let loss =
       Tensor.cross_entropy_for_logits (model train_images) ~targets:train_labels
@@ -34,8 +42,14 @@ let () =
     Tensor.zero_grad ws;
     Tensor.zero_grad bs;
     (* Compute the validation error. *)
+    let got = model test_images in
+    let estimated = Tensor.argmax got in
+    display_shape "test_images" test_images;
+    display_shape "got" got;
+    display_shape "estimated" estimated;
+    display_shape "test_labels" test_labels;
     let test_accuracy =
-      Tensor.(argmax ~dim:1 (model test_images) = test_labels)
+      Tensor.(estimated = test_labels)
       |> Tensor.to_kind ~kind:(T Float)
       |> Tensor.sum
       |> Tensor.float_value
